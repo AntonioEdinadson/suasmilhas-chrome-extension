@@ -1,11 +1,22 @@
 import { AdjustmentsHorizontalIcon, CurrencyDollarIcon, FireIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
-export const Navbar = () => {
+interface INavbarComponent {
+    locale: string;
+}
+
+export const Navbar = (props: INavbarComponent) => {
     return (
         <div className="w-full flex justify-around items-center gap-2">
-            <FireIcon className="w-8 text-zinc-400 hover:scale-110 cursor-pointer" />
-            <CurrencyDollarIcon className="w-8 text-zinc-400 hover:scale-110 cursor-pointer" />
-            <AdjustmentsHorizontalIcon className="w-8 text-zinc-400 hover:scale-110 cursor-pointer" />
+            <Link to="/quote">
+                <FireIcon className={`w-8 text-zinc-400 hover:scale-125 cursor-pointer ${props.locale == 'quote' && "text-[#17E077]"}`} />
+            </Link>
+            <Link to="/plans">
+                <CurrencyDollarIcon className={`w-8 text-zinc-400 hover:scale-125 cursor-pointer ${props.locale == 'plans' && "text-[#17E077]"}`} />
+            </Link>
+            <Link to="/config">
+                <AdjustmentsHorizontalIcon className={`w-8 text-zinc-400 hover:scale-125 cursor-pointer ${props.locale == 'config' && "text-[#17E077]"}`} />
+            </Link>
         </div>
     );
 };

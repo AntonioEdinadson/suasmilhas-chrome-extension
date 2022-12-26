@@ -2,7 +2,7 @@ export const customStylesSelect = {
     control: (base: any) => ({
         ...base,
         backgroundColor: "#FFF",
-        border: '1px solid #CCC',
+        border: '1px solid #878787',
         padding: '.5rem'
     }),
 
@@ -14,14 +14,14 @@ export const customStylesSelect = {
 
     singleValue: (provided: any) => ({
         ...provided,
-        color: '#CCC',
+        color: '#878787',
         fontWeight: '500',
         fontSize: '1rem'
     }),
 
     option: (provided: any, state: any) => ({
         ...provided,
-        borderBottom: '1px solid #CCC',
+        borderBottom: '1px solid #878787',
         fontWeight: '500',
         color: state.isSelected ? 'white' : '#757575',
         padding: 5,

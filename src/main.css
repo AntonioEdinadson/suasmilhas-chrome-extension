@@ -5,3 +5,25 @@
 body {
     background-color: #333;
 }
+
+* {
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 10px;
+}
+
+/* aqui é para personalizar o fundo da barra, neste caso estou colocando um fundo cinza escuro*/
+::-webkit-scrollbar-track {
+    background: #CCC;
+}
+
+/* aqui é a alça da barra, que demonstra a altura que você está na página
+    estou colocando uma cor azul clara nela*/
+::-webkit-scrollbar-thumb {
+    background: #029a61;
+}

@@ -24,5 +24,10 @@ export const RoutesList = () => {
             path: '/login',
             element: <Login />
         },
+
+        {
+            path: '*',
+            element: <span>404</span>
+        },
     ]);
 }

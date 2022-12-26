@@ -7,14 +7,17 @@ import { ISelect } from "../../interfaces/ISelect";
 
 interface ISelectComponent {
     description: string;
-    cias: ISelect[];
+    data: ISelect[];
     control: Control<any>;
     errors: any;
     name: string;
-    state?: Boolean;
+    state: Boolean;
+    value?: ISelect | null;
+    execute: (event: Event) => void;
 }
 
 export const SelectField = (props: ISelectComponent) => {
+
     return (
         <div>
             <div className="w-full">
@@ -23,12 +26,12 @@ export const SelectField = (props: ISelectComponent) => {
                     control={props.control}
                     render={({ field: { value, onChange } }) => (
                         <Select
-                            isDisabled={props.state && true}
+                            isDisabled={props.state ? true : false}
                             className="text-center"
                             styles={customStylesSelect}
-                            options={props.cias}
-                            value={props.cias.find((e: any) => e.value == value)}
-                            onChange={(e: any) => onChange(e.value)}
+                            options={props.data}
+                            value={props.value && { label: props.value.label, value: props.value.value }}
+                            onChange={(event: any) => { onChange(event.value); props.execute(event) }}
                             placeholder={props.description}
                         />
                     )}

@@ -10,3 +10,9 @@ export interface IQuote {
     cpm: number;
     totalPrice: number;
 }
+
+export interface IQuoteResult {
+    maxmilhas: IQuote[],
+    hotmilhas: IQuote[],
+    quantity: number
+}
