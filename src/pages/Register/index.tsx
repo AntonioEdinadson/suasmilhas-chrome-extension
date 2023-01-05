@@ -26,7 +26,7 @@ export const Register = () => {
 
     return (
         <div className="w-full px-[3rem] py-[2rem]">
-            <TopBar />
+            {/* <TopBar /> */}
             <main className="mt-[2rem]">
                 <h1 className="text-[1.2rem]  font-medium pb-4">Criar conta</h1>
                 <form method="post" onSubmit={handleSubmit(onSubmit)}>

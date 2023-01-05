@@ -21,12 +21,13 @@ export const Login = () => {
     const [password, SetPassword] = useState<Boolean>(false);
 
     const onSubmit = (event: any) => {
+        localStorage.setItem('auth', "antonio");
         event.preventDefault();
     }
 
     return (
         <div className="w-full px-[3rem] py-[2rem]">
-            <TopBar />
+            <TopBar name={""} />
             <main className="mt-[2rem]">
                 <h1 className="text-[1.2rem]  font-medium pb-4">Login</h1>
                 <form method="post" onSubmit={handleSubmit(onSubmit)}>

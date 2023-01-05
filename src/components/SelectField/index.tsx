@@ -2,7 +2,7 @@ import Select from 'react-select';
 import { ErrorMessage } from "@hookform/error-message";
 import { Control, Controller } from "react-hook-form";
 
-import { customStylesSelect } from "../../Config/custom-react-select";
+import { customStylesSelect } from "../../config/custom-react-select";
 import { ISelect } from "../../interfaces/ISelect";
 
 interface ISelectComponent {

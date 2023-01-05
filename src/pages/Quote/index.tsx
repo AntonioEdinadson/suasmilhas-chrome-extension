@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navbar } from "../../components/Navbar";
 import { QuoteResult } from "../../components/QuoteResult";
@@ -11,9 +11,12 @@ import { ISelect } from "../../interfaces/ISelect";
 
 import maxIcon from '../../assets/max.png';
 import hotIcon from '../../assets/hot.webp';
-import { ChevronLeftIcon } from "@heroicons/react/24/solid";
+import { MyApps } from "../../components/MyApps";
+import AuthContext from "../../Contexts/AuthContext";
 
 export const Quote = () => {
+
+    const auth = useContext(AuthContext);
 
     const { handleSubmit, control, formState: { errors } } = useForm<IQuoteComponent>();
     const [cias, setCias] = useState<ICia[]>([]);
@@ -27,7 +30,7 @@ export const Quote = () => {
 
     const [result, setResult] = useState<IQuoteResult | null>(null);
 
-    useEffect(() => {
+    useEffect(() => {    
         getCias();
     }, []);
 
@@ -66,8 +69,7 @@ export const Quote = () => {
     }, [cia]);
 
     const getCias = async () => {
-        try {
-
+        try {        
             const request = await suasmilhas.getCias();
             setCias(request);
 
@@ -86,10 +88,10 @@ export const Quote = () => {
     };
 
     const onSubmit = async (e: any) => {
-        try {
+        try {                                    
 
             if (!e.ciaId || !e.quantity) {
-                console.log("ciaID error");
+                console.log("ciaID error");                
                 return;
             }
 
@@ -97,7 +99,7 @@ export const Quote = () => {
             setResult(request);
 
         } catch (error) {
-            console.log(error);
+            console.log(error);            
         }
     };
 
@@ -105,31 +107,17 @@ export const Quote = () => {
         <div className="relative">
             <div className="w-full absolute top-0 left-0 h-full">
                 <div className="flex items-center h-[6rem] px-3 border-b">
-                    <TopBar />
+                    <TopBar name={"ANTONIO"} />
                 </div>
                 <main className="w-full flex justify-center items-center h-[26rem] p-[1.5rem]">
                     {result
                         ?
                         <div className="w-full h-full flex flex-col gap-2">
-                            <div className="flex items-center justify-between mb-4">
-                                <h1 className="text-[1.1rem]">Sua contação para <span className="font-medium">{result.quantity}K</span></h1>
-                                <span className="border px-2 rounded flex justify-between items-center cursor-pointer" onClick={() => setResult(null)}>VOLTAR</span>
+                            <div className="flex items-center justify-between mb-4 text-[#868686]">
+                                <h1 className="text-[1rem]">Sua contação para <span className="font-medium">{result.quantity}.000 milhas</span></h1>
+                                <span className="border px-2 rounded flex justify-between items-center cursor-pointer text-[.8rem]" onClick={() => { setResult(null), setPoint(null) }}>VOLTAR</span>
                             </div>
                             <div className="overflow-y-auto">
-                                <div>
-                                    {result.hotmilhas && result.hotmilhas.length > 0
-                                        ?
-                                        <div className="flex flex-col gap-2">
-                                            {result.hotmilhas.map((max: IQuote, index) => (
-                                                <QuoteResult image={hotIcon} cpm={max.cpm} day={max.paymentDeadline} value={max.totalPrice} key={index} />
-                                            ))}
-                                        </div>
-                                        :
-                                        <div>
-                                            NOK
-                                        </div>
-                                    }
-                                </div>
                                 <div>
                                     {result.maxmilhas && result.maxmilhas.length > 0
                                         ?
@@ -139,40 +127,59 @@ export const Quote = () => {
                                             ))}
                                         </div>
                                         :
-                                        <div>
-                                            NOK
+                                        <div className="my-2">
+                                            <QuoteResult image={maxIcon} cpm={0} day={0} value={0} />
+                                        </div>
+                                    }
+                                </div>
+                                <div>
+                                    {result.hotmilhas && result.hotmilhas.length > 0
+                                        ?
+                                        <div className="flex flex-col gap-2">
+                                            {result.hotmilhas.map((max: IQuote, index) => (
+                                                <QuoteResult image={hotIcon} cpm={max.cpm} day={max.paymentDeadline} value={max.totalPrice} key={index} />
+                                            ))}
+                                        </div>
+                                        :
+                                        <div className="my-2">
+                                            <QuoteResult image={maxIcon} cpm={0} day={0} value={0} />
                                         </div>
                                     }
                                 </div>
                             </div>
                         </div>
                         :
-                        <form method="post" onSubmit={handleSubmit(onSubmit)} className="w-full">
-                            <div className="w-full flex flex-col gap-2">
-                                <SelectField
-                                    description="Selecione o Programa"
-                                    data={program}
-                                    control={control}
-                                    errors={errors}
-                                    name={"ciaId"}
-                                    state={false}
-                                    execute={(event: any) => setCia(event)} />
-
-                                <SelectField
-                                    description="Quantidade de Milhas"
-                                    data={quantity}
-                                    control={control}
-                                    errors={errors}
-                                    value={point}
-                                    name={"quantity"}
-                                    state={statusQuantity}
-                                    execute={(event: any) => setPoint(event)} />
-
-                                <button className="w-full bg-[#17E077] p-[.8rem] mt-2 text-white text-[1rem] font-medium rounded">
-                                    COTAR AGORA
-                                </button>
+                        <div className="w-full">
+                            <div className="mb-5">
+                                <MyApps />
                             </div>
-                        </form>
+                            <form method="post" onSubmit={handleSubmit(onSubmit)} className="w-full">
+                                <div className="w-full flex flex-col gap-2">
+                                    <SelectField
+                                        description="Selecione o Programa"
+                                        data={program}
+                                        control={control}
+                                        errors={errors}
+                                        name={"ciaId"}
+                                        state={false}
+                                        execute={(event: any) => setCia(event)} />
+
+                                    <SelectField
+                                        description="Quantidade de Milhas"
+                                        data={quantity}
+                                        control={control}
+                                        errors={errors}
+                                        value={point}
+                                        name={"quantity"}
+                                        state={statusQuantity}
+                                        execute={(event: any) => setPoint(event)} />
+
+                                    <button className="w-full bg-[#17E077] p-[.8rem] mt-2 text-white text-[1rem] font-medium rounded">
+                                        COTAR AGORA
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     }
                 </main>
                 <div className="w-full h-[4rem] fixed bottom-0 border-t flex items-center">

@@ -10,6 +10,8 @@ body {
     padding: 0;
     margin: 0;
     outline: none;
+    //font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -25,5 +27,5 @@ body {
 /* aqui é a alça da barra, que demonstra a altura que você está na página
     estou colocando uma cor azul clara nela*/
 ::-webkit-scrollbar-thumb {
-    background: #029a61;
+    background: #17E077;
 }

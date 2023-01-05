@@ -15,3 +15,15 @@ export const suasmilhas = {
         return request.data.quote;
     }
 };
+
+export const authentication = {
+    validateToken: async () => {
+        const request = await suasmilhas_api.post('/token');
+        return request.data.user;
+    },
+
+    signIn: async (email: string, password: string) => {
+        const request = await suasmilhas_api.post('/sign', { email, password });
+        return request.data.user;
+    }
+}
