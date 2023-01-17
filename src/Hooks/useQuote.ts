@@ -1,10 +1,6 @@
-import axios from "axios";
+import suasmilhas_api from "../Config/axios";
 
-const suasmilhas_api = axios.create({
-    baseURL: "http://localhost:5000/api"
-});
-
-export const suasmilhas = {
+const QuoteAPI = {
     getCias: async () => {
         const request = await suasmilhas_api.get('/cias');
         return request.data.cia;
@@ -16,14 +12,4 @@ export const suasmilhas = {
     }
 };
 
-export const authentication = {
-    validateToken: async () => {
-        const request = await suasmilhas_api.post('/token');
-        return request.data.user;
-    },
-
-    signIn: async (email: string, password: string) => {
-        const request = await suasmilhas_api.post('/sign', { email, password });
-        return request.data.user;
-    }
-}
+export default QuoteAPI;

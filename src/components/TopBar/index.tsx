@@ -1,12 +1,15 @@
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import AuthContext from '../../Contexts/AuthContext';
+
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import logo from '../../assets/logo.png';
 
-interface ITopbarComponent {
-    name: string;
-}
+export const TopBar = () => {
 
-export const TopBar = (props: ITopbarComponent) => {
+    const auth = useContext(AuthContext);    
+
     return (
         <header className='w-full flex items-center gap-2'>
             <div className='w-[60%] flex items-center gap-2'>
@@ -20,7 +23,7 @@ export const TopBar = (props: ITopbarComponent) => {
             </div>
             <div className='w-[40%]'>
                 <Link to='/config' className='flex gap-3 justify-end'>
-                    <span className='block'>Olá <b>{props.name}</b></span>
+                    <span className='block text-[1.2rem]'>Olá <b>{auth.user?.name}</b></span>
                     <ChevronRightIcon className='w-4 text-[#868686]' />
                 </Link>
             </div>

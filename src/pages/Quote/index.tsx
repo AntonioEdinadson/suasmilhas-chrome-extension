@@ -1,22 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
+import QuoteApi from "../../Hooks/useQuote";
+import AuthContext from "../../Contexts/AuthContext";
+
 import { Navbar } from "../../components/Navbar";
 import { QuoteResult } from "../../components/QuoteResult";
 import { SelectField } from "../../components/SelectField";
 import { TopBar } from "../../components/TopBar";
-import { suasmilhas } from "../../Hooks/useQuote";
+import { MyApps } from "../../components/MyApps";
+
 import { ICia } from "../../interfaces/ICia";
 import { IQuote, IQuoteComponent, IQuoteResult } from "../../interfaces/IQuote";
 import { ISelect } from "../../interfaces/ISelect";
 
 import maxIcon from '../../assets/max.png';
 import hotIcon from '../../assets/hot.webp';
-import { MyApps } from "../../components/MyApps";
-import AuthContext from "../../Contexts/AuthContext";
 
 export const Quote = () => {
 
-    const auth = useContext(AuthContext);
+    const auth = useContext(AuthContext);    
 
     const { handleSubmit, control, formState: { errors } } = useForm<IQuoteComponent>();
     const [cias, setCias] = useState<ICia[]>([]);
@@ -30,7 +33,7 @@ export const Quote = () => {
 
     const [result, setResult] = useState<IQuoteResult | null>(null);
 
-    useEffect(() => {    
+    useEffect(() => {
         getCias();
     }, []);
 
@@ -69,8 +72,10 @@ export const Quote = () => {
     }, [cia]);
 
     const getCias = async () => {
-        try {        
-            const request = await suasmilhas.getCias();
+        try {
+            
+            auth.handleLoading(true);
+            const request = await QuoteApi.getCias();
             setCias(request);
 
             const resquestProgram = request.map((cia: any) => {
@@ -81,25 +86,32 @@ export const Quote = () => {
             });
 
             setProgram(resquestProgram);
+            auth.handleLoading(false);
 
         } catch (error) {
             console.log(error);
+            auth.handleLoading(false);
         }
     };
 
     const onSubmit = async (e: any) => {
-        try {                                    
+        try {
+
+            auth.handleLoading(true);
 
             if (!e.ciaId || !e.quantity) {
-                console.log("ciaID error");                
+                console.log("ciaID error");
+                auth.handleLoading(false);
                 return;
             }
 
-            const request = await suasmilhas.getQuote(e.ciaId, e.quantity);
+            const request = await QuoteApi.getQuote(e.ciaId, e.quantity);
             setResult(request);
+            auth.handleLoading(false);
 
         } catch (error) {
-            console.log(error);            
+            console.log(error);
+            auth.handleLoading(false);
         }
     };
 
@@ -107,7 +119,7 @@ export const Quote = () => {
         <div className="relative">
             <div className="w-full absolute top-0 left-0 h-full">
                 <div className="flex items-center h-[6rem] px-3 border-b">
-                    <TopBar name={"ANTONIO"} />
+                    <TopBar />
                 </div>
                 <main className="w-full flex justify-center items-center h-[26rem] p-[1.5rem]">
                     {result
