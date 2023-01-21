@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import { IAuthProvider } from "../interfaces/IAuth";
+import { Welcome } from "../pages/Welcome";
 import AuthContext from "./AuthContext";
 
 export const AuthComponent = ({ children }: IAuthProvider) => {
@@ -8,11 +9,7 @@ export const AuthComponent = ({ children }: IAuthProvider) => {
     const auth = useContext(AuthContext);
 
     if (!auth.user) {
-        return (
-            <div className="text-[5rem]">
-                401
-            </div>
-        );
+        return <Welcome />;
     }
 
     return children;

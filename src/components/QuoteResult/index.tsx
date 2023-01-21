@@ -18,11 +18,11 @@ export const QuoteResult = (props: IQuoteResultComponent) => {
                         <div className="w-[40%] text-[.8rem] font-medium bg-[#17E077] rounded p-[2px] text-zinc-50">
                             <span>CPM {props.cpm.toLocaleString("pt-BR", { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</span>
                         </div>
-                        <div className="w-[25%] text-[.8rem] font-medium">
+                        <div className="w-[25%] text-[.8rem] font-medium text-zinc-600">
                             <span>EM {props.day}D</span>
                         </div>
                     </div>
-                    <div className="w-[30%] text-[1.1rem] font-semibold text-right">
+                    <div className="w-[30%] text-[1.1rem] font-semibold text-right text-zinc-600">
                         <span>{props.value.toLocaleString("pt-BR", { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</span>
                     </div>
                 </>

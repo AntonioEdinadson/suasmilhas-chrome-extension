@@ -8,7 +8,7 @@ const App = () => {
   const auth = useContext(AuthContext);
 
   return (
-    <div className="App w-[25rem] h-[36rem] bg-white overflow-hidden relative">
+    <div className="App w-[25rem] h-[36rem] bg-white overflow-hidden relative rounded border-4 border-white">
       <RoutesList></RoutesList>
       {auth.loading && <Loading />}
     </div>

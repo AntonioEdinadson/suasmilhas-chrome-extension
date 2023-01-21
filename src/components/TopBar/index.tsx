@@ -8,7 +8,7 @@ import logo from '../../assets/logo.png';
 
 export const TopBar = () => {
 
-    const auth = useContext(AuthContext);    
+    const auth = useContext(AuthContext);
 
     return (
         <header className='w-full flex items-center gap-2'>
@@ -23,8 +23,7 @@ export const TopBar = () => {
             </div>
             <div className='w-[40%]'>
                 <Link to='/config' className='flex gap-3 justify-end'>
-                    <span className='block text-[1.2rem]'>Olá <b>{auth.user?.name}</b></span>
-                    <ChevronRightIcon className='w-4 text-[#868686]' />
+                    <span className='block text-[1.2rem]'>Olá <b>{auth.user?.name?.substring(0, 8)}</b></span>
                 </Link>
             </div>
         </header>

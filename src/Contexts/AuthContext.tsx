@@ -19,8 +19,8 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     const isAuthenticated = async () => {
         try {
 
-            const token = await Chrome.getCookie('0bd94827c2f6c2c3843cbd964ccefeba', 'http://localhost');
-            const userId = await Chrome.getCookie('token', 'http://localhost');
+            const token = await Chrome.getCookie(import.meta.env.VITE_TOKEN_NAME, 'http://localhost');
+            const userId = await Chrome.getCookie(import.meta.env.VITE_USERID, 'http://localhost');
 
             if (!token.value || !userId.value) {
                 console.log("TOKEN ERROR");
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
             });
 
             if (!request.user) {
-                console.log("USER UNAUTHORIZED");
+                console.log("UNAUTHORIZED");
                 setUser(null);
                 return;
             }
@@ -42,7 +42,10 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
             setUser({
                 id: request.user.id,
                 name: request.user.name,
-                email: request.user.email
+                email: request.user.email,
+                token: token.value,
+                signature: request.user.signature,
+                created_at: request.user.created_at
             });
 
         } catch (error) {

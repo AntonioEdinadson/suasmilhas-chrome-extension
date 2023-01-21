@@ -16,10 +16,11 @@ import { ISelect } from "../../interfaces/ISelect";
 
 import maxIcon from '../../assets/max.png';
 import hotIcon from '../../assets/hot.webp';
+import { Alert } from "../../components/Alert";
 
 export const Quote = () => {
 
-    const auth = useContext(AuthContext);    
+    const auth = useContext(AuthContext);
 
     const { handleSubmit, control, formState: { errors } } = useForm<IQuoteComponent>();
     const [cias, setCias] = useState<ICia[]>([]);
@@ -73,9 +74,21 @@ export const Quote = () => {
 
     const getCias = async () => {
         try {
-            
+
+            if (!auth.user?.token || !auth.user.id) {
+                setCias([]);
+                auth.handleLoading(false);
+                console.log("unauthorized");
+                return;
+            }
+
             auth.handleLoading(true);
-            const request = await QuoteApi.getCias();
+
+            const request = await QuoteApi.getCias({
+                token: auth.user?.token,
+                userId: auth.user?.id
+            });
+
             setCias(request);
 
             const resquestProgram = request.map((cia: any) => {
@@ -105,7 +118,18 @@ export const Quote = () => {
                 return;
             }
 
-            const request = await QuoteApi.getQuote(e.ciaId, e.quantity);
+            if (!auth.user?.token || !auth.user.id) {
+                setCias([]);
+                auth.handleLoading(false);
+                console.log("unauthorized");
+                return;
+            }
+
+            const request = await QuoteApi.getQuote(e.ciaId, e.quantity, {
+                token: auth.user.token,
+                userId: auth.user.id
+            });
+
             setResult(request);
             auth.handleLoading(false);
 
@@ -121,16 +145,21 @@ export const Quote = () => {
                 <div className="flex items-center h-[6rem] px-3 border-b">
                     <TopBar />
                 </div>
-                <main className="w-full flex justify-center items-center h-[26rem] p-[1.5rem]">
+                <main className="w-full flex justify-center items-center h-[26rem] p-[1rem]">
                     {result
                         ?
                         <div className="w-full h-full flex flex-col gap-2">
-                            <div className="flex items-center justify-between mb-4 text-[#868686]">
-                                <h1 className="text-[1rem]">Sua contação para <span className="font-medium">{result.quantity}.000 milhas</span></h1>
-                                <span className="border px-2 rounded flex justify-between items-center cursor-pointer text-[.8rem]" onClick={() => { setResult(null), setPoint(null) }}>VOLTAR</span>
+                            {!auth.user?.signature && <Alert />}
+                            <div className="flex items-center justify-between mb-4 text-zinc-600">
+                                <h1 className="text-[1.1rem]">Sua contação para <span className="font-medium">{result.quantity}.000 milhas</span></h1>
+                                <span
+                                    className="px-2 cursor-pointer bg-[#17E077] py-1 text-center text-white text-[.8rem] font-medium rounded hover:scale-105"
+                                    onClick={() => { setResult(null), setPoint(null) }}>
+                                    VOLTAR
+                                </span>
                             </div>
                             <div className="overflow-y-auto">
-                                <div>
+                                <div className="mb-2">
                                     {result.maxmilhas && result.maxmilhas.length > 0
                                         ?
                                         <div className="flex flex-col gap-2">
@@ -162,9 +191,13 @@ export const Quote = () => {
                         </div>
                         :
                         <div className="w-full">
+
+                            {!auth.user?.signature && <Alert />}
+
                             <div className="mb-5">
                                 <MyApps />
                             </div>
+
                             <form method="post" onSubmit={handleSubmit(onSubmit)} className="w-full">
                                 <div className="w-full flex flex-col gap-2">
                                     <SelectField

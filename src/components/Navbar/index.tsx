@@ -13,10 +13,7 @@ export const Navbar = (props: INavbarComponent) => {
             </Link>
             <Link to="/plans">
                 <CurrencyDollarIcon className={`w-8 text-zinc-400 hover:scale-125 cursor-pointer ${props.locale == 'plans' && "text-[#17E077]"}`} />
-            </Link>
-            <Link to="/config">
-                <AdjustmentsHorizontalIcon className={`w-8 text-zinc-400 hover:scale-125 cursor-pointer ${props.locale == 'config' && "text-[#17E077]"}`} />
-            </Link>
+            </Link>            
         </div>
     );
 };
