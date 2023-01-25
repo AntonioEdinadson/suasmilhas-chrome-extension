@@ -1,4 +1,5 @@
 import logo from '../../assets/logo.png';
+import { BASE_URL } from '../../Config/base';
 
 export const Welcome = () => {
 
@@ -25,11 +26,11 @@ export const Welcome = () => {
                     </div>
                     <div className='w-[60%] mx-auto mt-12 flex flex-col gap-4'>
                         <span className="cursor-pointer block w-full bg-[#17E077] p-[.7rem] text-center text-white text-[1rem] font-medium rounded hover:scale-105"
-                            onClick={() => handleClick("http://localhost:3000/chrome/signin")}>
+                            onClick={() => handleClick(`${BASE_URL}/signin`)}>
                             Já possui conta
                         </span>
                         <span className="cursor-pointer block w-full bg-zinc-200 p-[.7rem] text-center text-white text-[1rem] font-medium rounded hover:scale-105"
-                            onClick={() => handleClick("http://localhost:3000/chrome/signup")}>
+                            onClick={() => handleClick(`${BASE_URL}/signup`)}>
                             Criar uma conta
                         </span>
                     </div>

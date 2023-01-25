@@ -143,7 +143,7 @@ export const Quote = () => {
         <div className="relative">
             <div className="w-full absolute top-0 left-0 h-full">
                 <div className="flex items-center h-[6rem] px-3 border-b">
-                    <TopBar />
+                    <TopBar />                    
                 </div>
                 <main className="w-full flex justify-center items-center h-[26rem] p-[1rem]">
                     {result

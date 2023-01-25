@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { Alert } from "../../components/Alert";
 
 import moment from "moment";
+import { BASE_URL } from "../../Config/base";
 
 
 export const Plans = () => {
@@ -116,7 +117,7 @@ export const Plans = () => {
                                                 <span className="block text-[.7rem] text-zinc-400">/ mês</span>
                                             </div>
                                             <span className="cursor-pointer bg-[#17E077] py-1 text-center text-white text-[.8rem] font-medium rounded hover:scale-105"
-                                                onClick={() => handleClick(`http://localhost:3000/chrome/assinatura/${card.id}`)}>
+                                                onClick={() => handleClick(`${BASE_URL}/assinatura/${card.id}`)}>
                                                 ASSINAR
                                             </span>
                                         </div>

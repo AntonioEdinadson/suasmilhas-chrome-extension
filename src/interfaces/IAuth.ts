@@ -2,7 +2,7 @@ import { IUser } from "./IUser";
 
 export interface IAuthContext {
     user: IUser | null;        
-    loading: Boolean;
+    loading: Boolean;    
     handleLoading: (status: Boolean) => void;    
 }
 
