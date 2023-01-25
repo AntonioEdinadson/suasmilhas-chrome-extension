@@ -1,4 +1,4 @@
-# suasmilhas.com (calculadora de milhas do brasil) extensão para chrome
+# suamilhas.com (miles calculator for brazil) extension for chrome
 
 See how much your airline miles are worth without having to go to the hotmilhas or maxmilhas website to enter your email, quote in real time.
 
