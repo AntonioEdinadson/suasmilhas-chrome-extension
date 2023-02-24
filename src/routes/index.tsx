@@ -2,6 +2,7 @@ import { useRoutes } from 'react-router-dom';
 import { AuthComponent } from '../Contexts/AuthComponent';
 import { Plans } from '../pages/Plans';
 import { Quote } from '../pages/Quote';
+import { Transfers } from '../pages/Transfers';
 
 export const RoutesList = () => {
     return useRoutes([
@@ -13,6 +14,11 @@ export const RoutesList = () => {
         {
             path: '/quote',
             element: <AuthComponent><Quote /></AuthComponent>
+        },
+
+        {
+            path: '/transfers',
+            element: <AuthComponent><Transfers /></AuthComponent>
         },
 
         {

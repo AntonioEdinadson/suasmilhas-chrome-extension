@@ -1,14 +1,23 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-
 import AuthContext from '../../Contexts/AuthContext';
 
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import logo from '../../assets/logo.png';
+import { BASE_URL } from '../../Config/base';
 
 export const TopBar = () => {
 
     const auth = useContext(AuthContext);
+
+    const handleClick = async (url: string) => {
+        try {
+
+            const tab = await chrome.tabs.create({ url });
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <header className='w-full flex items-center gap-2'>
@@ -21,11 +30,12 @@ export const TopBar = () => {
                     <h2 className="text-[#868686] text-[.8rem] leading-[1.2rem]">CALCULADORA DE MILHAS</h2>
                 </div>
             </div>
-            <div className='w-[40%]'>
-                <Link to='/config' className='flex gap-3 justify-end'>
-                    <span className='block text-[1.2rem]'>Olá <b>{auth.user?.name?.substring(0, 8)}</b></span>
-                </Link>
+            <div className='w-[40%] flex justify-end'>
+                <span className='text-right text-[1.2rem] cursor-pointer'
+                    onClick={() => handleClick(`${BASE_URL}/perfil`)}>
+                    Olá <b>{auth.user?.name?.substring(0, 8)}</b>
+                </span>
             </div>
-        </header>
+        </header >
     );
 };

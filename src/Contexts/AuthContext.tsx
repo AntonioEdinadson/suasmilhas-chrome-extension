@@ -12,6 +12,10 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     const [user, setUser] = useState<IUser | null>(null);
     const [loading, setLoading] = useState<Boolean>(false);
 
+    const domain = import.meta.env.VITE_AMBIENT === "production"
+        ? import.meta.env.VITE_DOMAIN_PROD
+        : import.meta.env.VITE_DOMAIN_DEV
+
     useEffect(() => {
         isAuthenticated();
     }, []);
@@ -19,8 +23,8 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     const isAuthenticated = async () => {
         try {
 
-            const token = await Chrome.getCookie(import.meta.env.VITE_TOKEN_NAME, 'http://localhost');
-            const userId = await Chrome.getCookie(import.meta.env.VITE_USERID, 'http://localhost');
+            const token = await Chrome.getCookie(import.meta.env.VITE_TOKEN_NAME, domain);
+            const userId = await Chrome.getCookie(import.meta.env.VITE_USERID, domain);
 
             if (!token.value || !userId.value) {
                 console.log("TOKEN ERROR");

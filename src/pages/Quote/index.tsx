@@ -143,15 +143,24 @@ export const Quote = () => {
         <div className="relative">
             <div className="w-full absolute top-0 left-0 h-full">
                 <div className="flex items-center h-[6rem] px-3 border-b">
-                    <TopBar />                    
+                    <TopBar />
                 </div>
                 <main className="w-full flex justify-center items-center h-[26rem] p-[1rem]">
                     {result
                         ?
                         <div className="w-full h-full flex flex-col gap-2">
                             {!auth.user?.signature && <Alert />}
-                            <div className="flex items-center justify-between mb-4 text-zinc-600">
-                                <h1 className="text-[1.1rem]">Sua contação para <span className="font-medium">{result.quantity}.000 milhas</span></h1>
+                            <div className="flex items-start justify-between mb-4 text-zinc-600">
+                                
+                                <div className="">
+                                    <span className="block text-[1rem] leading-4 font-medium uppercase">
+                                        Cotação para {result.quantity}.000 milhas
+                                    </span>
+                                    <span className="block font-light text-[.8rem]">
+                                        Programa de Fidelidade: <b>{cia?.label}</b>
+                                    </span>
+                                </div>
+
                                 <span
                                     className="px-2 cursor-pointer bg-[#17E077] py-1 text-center text-white text-[.8rem] font-medium rounded hover:scale-105"
                                     onClick={() => { setResult(null), setPoint(null) }}>

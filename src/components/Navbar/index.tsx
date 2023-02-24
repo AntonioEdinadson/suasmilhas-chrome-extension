@@ -1,4 +1,4 @@
-import { AdjustmentsHorizontalIcon, CurrencyDollarIcon, FireIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon, CurrencyDollarIcon, FireIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 interface INavbarComponent {
@@ -11,9 +11,12 @@ export const Navbar = (props: INavbarComponent) => {
             <Link to="/quote">
                 <FireIcon className={`w-8 text-zinc-400 hover:scale-125 cursor-pointer ${props.locale == 'quote' && "text-[#17E077]"}`} />
             </Link>
+            <Link to="/transfers">
+                <ArrowsRightLeftIcon className={`w-8 text-zinc-400 hover:scale-125 cursor-pointer ${props.locale == 'transfers' && "text-[#17E077]"}`} />
+            </Link>
             <Link to="/plans">
                 <CurrencyDollarIcon className={`w-8 text-zinc-400 hover:scale-125 cursor-pointer ${props.locale == 'plans' && "text-[#17E077]"}`} />
-            </Link>            
+            </Link>
         </div>
     );
 };
